@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script
+      src="https://kit.fontawesome.com/af1696ad18.js"
+      crossorigin="anonymous"
+    ></script>
+    <style>
+      * {
+        /* Change your font family */
+        font-family: sans-serif;
+      }
+
+      .content-table {
+        border-collapse: collapse;
+        margin: 25px 0;
+        font-size: 0.9em;
+        min-width: 400px;
+        border-radius: 5px 5px 0 0;
+        /* overflow: hidden; */
+        overflow-y: auto;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+      }
+
+      .content-table thead tr {
+        background-color: #009879;
+        color: #ffffff;
+        text-align: left;
+        font-weight: bold;
+        position: sticky;
+        top: 0; /* Don't forget this, required for the stickiness */
+        z-index: 999;
+      }
+
+      .content-table th,
+      .content-table td {
+        padding: 12px 15px;
+      }
+
+      .content-table tbody tr {
+        border-bottom: 1px solid #dddddd;
+      }
+
+      .content-table tbody tr:nth-of-type(even) {
+        background-color: #f3f3f3;
+      }
+
+      .content-table tbody tr:last-of-type {
+        border-bottom: 2px solid #009879;
+      }
+
+      .content-table tbody tr.active-row {
+        font-weight: bold;
+        color: #009879;
+      }
+
+      .content-table th {
+        position: sticky;
+        top: 0; /* Don't forget this, required for the stickiness */
+      }
+
+      /* The container */
+      .container {
+        display: block;
+        position: relative;
+        padding-left: 17.5px;
+        margin-bottom: 6px;
+        cursor: pointer;
+        font-size: 12px;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      /* Hide the browser's default checkbox */
+      .container input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height: 0;
+        width: 0;
+      }
+
+      /* Create a custom checkbox */
+      .checkmark {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 15px;
+        width: 15px;
+        background-color: #eee;
+      }
+
+      /* On mouse-over, add a grey background color */
+      .container:hover input ~ .checkmark {
+        background-color: #ccc;
+      }
+
+      /* When the checkbox is checked, add a blue background */
+      .container input:checked ~ .checkmark {
+        background-color: #009879;
+      }
+
+      /* Create the checkmark/indicator (hidden when not checked) */
+      .checkmark:after {
+        content: "";
+        position: absolute;
+        display: none;
+      }
+
+      /* Show the checkmark when checked */
+      .container input:checked ~ .checkmark:after {
+        display: block;
+      }
+
+      /* Style the checkmark/indicator */
+      .container .checkmark:after {
+        left: 5.5px;
+        top: 3px;
+        width: 3px;
+        height: 6px;
+        border: solid white;
+        border-width: 0 1.5px 1.5px 0;
+        -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        transform: rotate(45deg);
+      }
+
+      .float {
+        position: fixed;
+        width: 60px;
+        height: 60px;
+        bottom: 40px;
+        right: 40px;
+        cursor: pointer;
+        background-color: #009879;
+        color: #fff;
+        border-radius: 50px;
+        text-align: center;
+        box-shadow: 2px 2px 3px #999;
+      }
+
+      .my-float {
+        margin-top: 22px;
+      }
+    </style>
+    <title>Speaking Evaluation</title>
+  </head>
+  <body>
+    <h2 style="text-align: center">IELTS SPEAKING EVALUATION</h2>
+    <table class="content-table">
+      <thead>
+        <tr>
+          <th>
+            Band
+            <div id="overall"></div>
+          </th>
+          <th>
+            Fluency and coherence
+            <div id="fl-score"></div>
+          </th>
+          <th>
+            Lexical resource
+            <div id="lr-score"></div>
+          </th>
+          <th>
+            Grammatical range and accuracy
+            <div id="gra-score"></div>
+          </th>
+          <th>
+            Pronunciation
+            <div id="pr-score"></div>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>9</td>
+          <td>
+            <label class="container"
+              >speaks fluently with only rare repetition or self-correction
+              <input type="checkbox" id="FL" value="9" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >any hesitation is content-related rather than to find words or
+              grammar
+              <input type="checkbox" id="FL" value="9" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >speaks coherently with fully appropriate cohesive features
+              <input type="checkbox" id="FL" value="9" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >develops topics fully and appropriately
+              <input type="checkbox" id="FL" value="9" />
+              <span class="checkmark"></span>
+            </label>
+          </td>
+          <td>
+            <label class="container"
+              >uses vocabulary with full flexibility and precision in all topics
+              <input type="checkbox" id="LR" value="9" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >uses idiomatic language naturally and accurately
+              <input type="checkbox" id="LR" value="9" />
+              <span class="checkmark"></span>
+            </label>
+          </td>
+          <td>
+            <label class="container"
+              >uses a full range of structures naturally and appropriately
+              <input type="checkbox" id="GRA" value="9" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >produces consistently accurate structures apart from 'slips'
+              characteristic of native speaker speech
+              <input type="checkbox" id="GRA" value="9" />
+              <span class="checkmark"></span>
+            </label>
+          </td>
+          <td>
+            <label class="container"
+              >uses a full range of pronunciation features with precision and
+              subtlety
+              <input type="checkbox" id="PR" value="9" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >sustains flexible use of features throughout
+              <input type="checkbox" id="PR" value="9" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >is effortless to understand
+              <input type="checkbox" id="PR" value="9" />
+              <span class="checkmark"></span>
+            </label>
+          </td>
+        </tr>
+        <tr>
+          <td>8</td>
+          <td>
+            <label class="container"
+              >speaks fluently with only occasional repetition or self-
+              correction; hesitation is usually content-related and only rarely
+              to search for language
+              <input type="checkbox" id="FL" value="8" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >develops topics coherently and appropriately
+              <input type="checkbox" id="FL" value="8" />
+              <span class="checkmark"></span>
+            </label>
+          </td>
+          <td>
+            <label class="container"
+              >uses a wide vocabulary resource readily and flexibly to convev
+              precise meaning
+              <input type="checkbox" id="LR" value="8" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >uses less common and idiomatic vocabulary skilfully, with
+              occasional inaccuracies
+              <input type="checkbox" id="LR" value="8" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >uses paraphrase effectively as required
+              <input type="checkbox" id="LR" value="8" />
+              <span class="checkmark"></span>
+            </label>
+          </td>
+          <td>
+            <label class="container"
+              >uses a wide range of structures flexibly
+              <input type="checkbox" id="GRA" value="8" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >produces a majority of error-free sentences with only very
+              occasional inappropriacies or basic/non-systematic errors
+              <input type="checkbox" id="GRA" value="8" />
+              <span class="checkmark"></span>
+            </label>
+          </td>
+          <td>
+            <label class="container"
+              >uses a wide range of pronunciation features
+              <input type="checkbox" id="PR" value="8" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >sustains flexible use of features, with only occasional lapses
+              <input type="checkbox" id="PR" value="8" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >is easy to understand throughout; L1 accent has minimal effect on
+              intelligibility
+              <input type="checkbox" id="PR" value="8" />
+              <span class="checkmark"></span>
+            </label>
+          </td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td>
+            <label class="container"
+              >speaks at length without noticeable effort or loss of coherence
+              <input type="checkbox" id="FL" value="7" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >may demonstrate language-related hesitation at times, or some
+              repetition and/or self-correction
+              <input type="checkbox" id="FL" value="7" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >uses a range of connectives and discourse markers with some
+              flexibilitv
+              <input type="checkbox" id="FL" value="7" />
+              <span class="checkmark"></span>
+            </label>
+          </td>
+          <td>
+            <label class="container"
+              >uses vocabulary resource flexibly to discuss a variety of topics
+              <input type="checkbox" id="LR" value="7" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >uses some less common and idiomatic vocabulary and shows some
+              awareness of style and collocation, with some inappropriate
+              choices
+              <input type="checkbox" id="LR" value="7" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >uses paraphrase effectively
+              <input type="checkbox" id="LR" value="7" />
+              <span class="checkmark"></span>
+            </label>
+          </td>
+          <td>
+            <label class="container"
+              >uses a range of complex structures with some flexibility
+              <input type="checkbox" id="GRA" value="7" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >frequently produces error-free sentences, though some grammatical
+              mistakes persist
+              <input type="checkbox" id="GRA" value="7" />
+              <span class="checkmark"></span>
+            </label>
+          </td>
+          <td>
+            <label class="container"
+              >shows all the positive features of Band 6 and some, but not all,
+              of the positive features of Band 8
+              <input type="checkbox" id="PR" value="7" />
+              <span class="checkmark"></span>
+            </label>
+          </td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>
+            <label class="container"
+              >is willing to speak at length, though may lose coherence at times
+              due to occasional repetition, self-correction or hesitation
+              <input type="checkbox" id="FL" value="6" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >uses a range of connectives and discourse markers but not always
+              appropriately
+              <input type="checkbox" id="FL" value="6" />
+              <span class="checkmark"></span>
+            </label>
+          </td>
+          <td>
+            <label class="container"
+              >has a wide enough vocabulary to discuss topics at length and make
+              meaning clear in spite of inappropriacies
+              <input type="checkbox" id="LR" value="6" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >generally paraphrases successfully
+              <input type="checkbox" id="LR" value="6" />
+              <span class="checkmark"></span>
+            </label>
+          </td>
+          <td>
+            <label class="container"
+              >uses a mix of simple and complex structures, but with limited
+              flexibility
+              <input type="checkbox" id="GRA" value="6" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >may make frequent mistakes with complex structures though these
+              rarely cause comprehension problems
+              <input type="checkbox" id="GRA" value="6" />
+              <span class="checkmark"></span>
+            </label>
+          </td>
+          <td>
+            <label class="container"
+              >uses a range of pronunciation features with mixed control
+              <input type="checkbox" id="PR" value="6" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >shows some effective use of features but this is not sustained
+              <input type="checkbox" id="PR" value="6" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >can generally be understood throughout, though mispronunciation
+              of individual words or sounds reduces clarity at times
+              <input type="checkbox" id="PR" value="6" />
+              <span class="checkmark"></span>
+            </label>
+          </td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>
+            <label class="container"
+              >usually maintains flow of speech but uses repetition, self
+              correction and/or slow speech to keep going
+              <input type="checkbox" id="FL" value="5" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >may over-use certain connectives and discourse markers
+              <input type="checkbox" id="FL" value="5" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >produces simple speech fluently, but more complex communication
+              causes fluency problems
+              <input type="checkbox" id="FL" value="5" />
+              <span class="checkmark"></span>
+            </label>
+          </td>
+          <td>
+            <label class="container"
+              >manages to talk about familiar and unfamiliar topics but uses
+              vocabulary with limited flexibility
+              <input type="checkbox" id="LR" value="5" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >attempts to use paraphrase but with mixed success
+              <input type="checkbox" id="LR" value="5" />
+              <span class="checkmark"></span>
+            </label>
+          </td>
+          <td>
+            <label class="container"
+              >produces basic sentence forms with reasonable accuracy
+              <input type="checkbox" id="GRA" value="5" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >uses a limited range of more complex structures, but these
+              usually contain errors and may cause some comprehension problems
+              <input type="checkbox" id="GRA" value="5" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >shows all the positive features of Band 4 and some, but not all,
+              of the positive features of Band 6
+              <input type="checkbox" id="GRA" value="5" />
+              <span class="checkmark"></span>
+            </label>
+          </td>
+          <td>
+            <label class="container"
+              >produces basic sentence forms with reasonable accuracy
+              <input type="checkbox" id="PR" value="5" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >uses a limited range of more complex structures, but these
+              usually contain errors and may cause some comprehension problems
+              <input type="checkbox" id="PR" value="5" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >shows all the positive features of Band 4 and some, but not all,
+              of the positive features of Band 6
+              <input type="checkbox" id="PR" value="5" />
+              <span class="checkmark"></span>
+            </label>
+          </td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>
+            <label class="container"
+              >cannot respond without noticeable pauses and may speak slowly,
+              with frequent repetition and self-correction
+              <input type="checkbox" id="FL" value="4" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >links basic sentences but with repetitious use of simple
+              connectives and some breakdowns in coherence
+              <input type="checkbox" id="FL" value="4" />
+              <span class="checkmark"></span>
+            </label>
+          </td>
+          <td>
+            <label class="container"
+              >is able to talk about familiar topics but can only convey basic
+              meaning on unfamiliar topics and makes frequent errors in word
+              choice
+              <input type="checkbox" id="LR" value="4" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >rarely attempts paraphrase
+              <input type="checkbox" id="LR" value="4" />
+              <span class="checkmark"></span>
+            </label>
+          </td>
+          <td>
+            <label class="container"
+              >produces basic sentence forms and some correct simple sentences
+              but subordinate structures are rare
+              <input type="checkbox" id="GRA" value="4" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >errors are frequent and may lead to misunderstanding
+              <input type="checkbox" id="GRA" value="4" />
+              <span class="checkmark"></span>
+            </label>
+          </td>
+          <td>
+            <label class="container"
+              >uses a limited range of pronunciation features
+              <input type="checkbox" id="PR" value="4" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >attempts to control features but lapses are frequent
+              <input type="checkbox" id="PR" value="4" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >mispronunciations are frequent and cause some difficulty for the
+              listener
+              <input type="checkbox" id="PR" value="4" />
+              <span class="checkmark"></span>
+            </label>
+          </td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>
+            <label class="container"
+              >speaks with long pauses
+              <input type="checkbox" id="FL" value="3" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >has limited ability to link simple sentences
+              <input type="checkbox" id="FL" value="3" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >gives only simple responses and is frequently unable to convey
+              basic message
+              <input type="checkbox" id="FL" value="3" />
+              <span class="checkmark"></span>
+            </label>
+          </td>
+          <td>
+            <label class="container"
+              >uses simple vocabulary to convey personal information
+              <input type="checkbox" id="LR" value="3" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >has insufficient vocabulary for less familiar topics
+              <input type="checkbox" id="LR" value="3" />
+              <span class="checkmark"></span>
+            </label>
+          </td>
+          <td>
+            <label class="container"
+              >attempts basic sentence forms but with limited success, or relies
+              on apparently memorised utterances
+              <input type="checkbox" id="GRA" value="3" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >makes numerous errors except in memorised expressions
+              <input type="checkbox" id="GRA" value="3" />
+              <span class="checkmark"></span>
+            </label>
+          </td>
+          <td>
+            <label class="container"
+              >shows some of the features of Band 2 and some, but not all, of
+              the positive features of Band 4
+              <input type="checkbox" id="PR" value="3" />
+              <span class="checkmark"></span>
+            </label>
+          </td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>
+            <label class="container"
+              >pauses lengthily before most words
+              <input type="checkbox" id="FL" value="2" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >little communication possible
+              <input type="checkbox" id="FL" value="2" />
+              <span class="checkmark"></span>
+            </label>
+          </td>
+          <td>
+            <label class="container"
+              >only produces isolated words or memorised utterances
+              <input type="checkbox" id="LR" value="2" />
+              <span class="checkmark"></span>
+            </label>
+          </td>
+          <td>
+            <label class="container"
+              >cannot produce basic sentence forms
+              <input type="checkbox" id="GRA" value="2" />
+              <span class="checkmark"></span>
+            </label>
+          </td>
+          <td>
+            <label class="container"
+              >Speech is often unintelligble
+              <input type="checkbox" id="PR" value="2" />
+              <span class="checkmark"></span>
+            </label>
+          </td>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>
+            <label class="container"
+              >no communication possible
+              <input type="checkbox" id="FL" value="1" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >no rateable language
+              <input type="checkbox" id="FL" value="1" />
+              <span class="checkmark"></span>
+            </label>
+          </td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>0</td>
+          <td>
+            <label class="container"
+              >does not attend
+              <input type="checkbox" id="FL" value="0" />
+              <span class="checkmark"></span>
+            </label>
+          </td>
+          <td></td>
+          <td></td>
+          <td>
+            <a href="https://t.me/watdfukizdat">Join our Telegram Channel</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <a onclick="reset()" class="float">
+      <i class="fa-solid fa-arrows-rotate my-float"></i>
+    </a>
+    <!-- Telegram icon. I like to use font-awesome but dont want to effect your imports too much.-->
+  </body>
+  <script>
+    function score_show(n) {
+      var num = Math.floor(n);
+      var decimal = n - num;
+      if (decimal < 0.25) {
+        return num + ".0";
+      } else if (decimal < 0.75) {
+        return num + ".5";
+      } else {
+        return parseInt(num + 1) + ".0";
+      }
+    }
+    function score(n) {
+      var num = Math.floor(n);
+      var decimal = n - num;
+      if (decimal < 0.25) {
+        return num;
+      } else if (decimal < 0.75) {
+        return num + 0.5;
+      } else {
+        return num + 1;
+      }
+    }
+    function calc(scores) {
+      var score = 0;
+      for (var i = 0; i < scores.length; i++) {
+        score = score + parseInt(scores[i].value);
+      }
+
+      return score / scores.length;
+    }
+
+    function calculate() {
+      var fl_scores = document.querySelectorAll(
+        'input[type="checkbox"][id="FL"]:checked'
+      );
+      if (fl_scores.length > 0) {
+        var fl_score = calc(fl_scores);
+        document.getElementById("fl-score").innerText = score_show(fl_score);
+      } else {
+        var fl_score = 0;
+        document.getElementById("fl-score").innerText = "";
+      }
+
+      var lr_scores = document.querySelectorAll(
+        'input[type="checkbox"][id="LR"]:checked'
+      );
+      if (lr_scores.length > 0) {
+        var lr_score = calc(lr_scores);
+        document.getElementById("lr-score").innerText = score_show(lr_score);
+      } else {
+        var lr_score = 0;
+        document.getElementById("lr-score").innerText = "";
+      }
+      var gra_scores = document.querySelectorAll(
+        'input[type="checkbox"][id="GRA"]:checked'
+      );
+      if (gra_scores.length > 0) {
+        var gra_score = calc(gra_scores);
+        document.getElementById("gra-score").innerText = score_show(gra_score);
+      } else {
+        var gra_score = 0;
+        document.getElementById("gra-score").innerText = "";
+      }
+      var pr_scores = document.querySelectorAll(
+        'input[type="checkbox"][id="PR"]:checked'
+      );
+      if (pr_scores.length > 0) {
+        var pr_score = calc(pr_scores);
+        document.getElementById("pr-score").innerText = score_show(pr_score);
+      } else {
+        var pr_score = 0;
+        document.getElementById("pr-score").innerText = "";
+      }
+      if (fl_score != 0 && lr_score != 0 && gra_score != 0 && pr_score != 0) {
+        fl_score = score(fl_score);
+        lr_score = score(lr_score);
+        gra_score = score(gra_score);
+        pr_score = score(pr_score);
+        document.getElementById("overall").innerText = score_show(
+          (fl_score + lr_score + gra_score + pr_score) / 4
+        );
+      } else {
+        document.getElementById("overall").innerText = "";
+      }
+    }
+
+    function addListener(boxes) {
+      for (var i = 0; i < boxes.length; i++) {
+        boxes[i].addEventListener("click", calculate);
+      }
+    }
+
+    function reset() {
+      var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+      for (var i = 0; i < checkboxes.length; i++) {
+        checkboxes[i].checked = false;
+      }
+      calculate();
+    }
+    // The demo
+    var checkboxesGroup1 = document.querySelectorAll(
+        'input[type="checkbox"][id="FL"]'
+      ),
+      checkboxesGroup2 = document.querySelectorAll(
+        'input[type="checkbox"][id="LR"]'
+      ),
+      checkboxesGroup3 = document.querySelectorAll(
+        'input[type="checkbox"][id="GRA"]'
+      );
+    checkboxesGroup4 = document.querySelectorAll(
+      'input[type="checkbox"][id="PR"]'
+    );
+
+    addListener(checkboxesGroup1);
+    addListener(checkboxesGroup2);
+    addListener(checkboxesGroup3);
+    addListener(checkboxesGroup4);
+  </script>
+</html>

@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script
+      src="https://kit.fontawesome.com/af1696ad18.js"
+      crossorigin="anonymous"
+    ></script>
+    <style>
+      * {
+        /* Change your font family */
+        font-family: sans-serif;
+      }
+
+      .content-table {
+        border-collapse: collapse;
+        margin: 25px 0;
+        font-size: 0.9em;
+        min-width: 400px;
+        border-radius: 5px 5px 0 0;
+        /* overflow: hidden; */
+        overflow-y: auto;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+      }
+
+      .content-table thead tr {
+        background-color: #009879;
+        color: #ffffff;
+        text-align: left;
+        font-weight: bold;
+        position: sticky;
+        top: 0; /* Don't forget this, required for the stickiness */
+        z-index: 999;
+      }
+
+      .content-table th,
+      .content-table td {
+        padding: 12px 15px;
+      }
+
+      .content-table tbody tr {
+        border-bottom: 1px solid #dddddd;
+      }
+
+      .content-table tbody tr:nth-of-type(even) {
+        background-color: #f3f3f3;
+      }
+
+      .content-table tbody tr:last-of-type {
+        border-bottom: 2px solid #009879;
+      }
+
+      .content-table tbody tr.active-row {
+        font-weight: bold;
+        color: #009879;
+      }
+
+      .content-table th {
+        position: sticky;
+        top: 0; /* Don't forget this, required for the stickiness */
+      }
+
+      /* The container */
+      .container {
+        display: block;
+        position: relative;
+        padding-left: 17.5px;
+        margin-bottom: 6px;
+        cursor: pointer;
+        font-size: 12px;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      /* Hide the browser's default checkbox */
+      .container input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height: 0;
+        width: 0;
+      }
+
+      /* Create a custom checkbox */
+      .checkmark {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 15px;
+        width: 15px;
+        background-color: #eee;
+      }
+
+      /* On mouse-over, add a grey background color */
+      .container:hover input ~ .checkmark {
+        background-color: #ccc;
+      }
+
+      /* When the checkbox is checked, add a blue background */
+      .container input:checked ~ .checkmark {
+        background-color: #009879;
+      }
+
+      /* Create the checkmark/indicator (hidden when not checked) */
+      .checkmark:after {
+        content: "";
+        position: absolute;
+        display: none;
+      }
+
+      /* Show the checkmark when checked */
+      .container input:checked ~ .checkmark:after {
+        display: block;
+      }
+
+      /* Style the checkmark/indicator */
+      .container .checkmark:after {
+        left: 5.5px;
+        top: 3px;
+        width: 3px;
+        height: 6px;
+        border: solid white;
+        border-width: 0 1.5px 1.5px 0;
+        -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        transform: rotate(45deg);
+      }
+
+      .float {
+        position: fixed;
+        width: 60px;
+        height: 60px;
+        bottom: 40px;
+        right: 40px;
+        cursor: pointer;
+        background-color: #009879;
+        color: #fff;
+        border-radius: 50px;
+        text-align: center;
+        box-shadow: 2px 2px 3px #999;
+      }
+
+      .my-float {
+        margin-top: 22px;
+      }
+    </style>
+    <title>Writing :: Task 1 Evaluation</title>
+  </head>
+  <body>
+    <h2 style="text-align: center">WRITING TASK 1 EVALUATION</h2>
+    <table class="content-table">
+      <thead>
+        <tr>
+          <th>
+            Band
+            <div id="overall"></div>
+          </th>
+          <th>
+            Task achievement
+            <div id="ta-score"></div>
+          </th>
+          <th>
+            Coherence and cohesion
+            <div id="cc-score"></div>
+          </th>
+          <th>
+            Lexical resource
+            <div id="lr-score"></div>
+          </th>
+          <th>
+            Grammatical range and accuracy
+            <div id="gra-score"></div>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>9</td>
+          <td>
+            <label class="container"
+              >fully satisfies all the requirements of the task
+              <input type="checkbox" id="TA" value="9" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >clearly presents a fully developed response
+              <input type="checkbox" id="TA" value="9" />
+              <span class="checkmark"></span>
+            </label>
+          </td>
+          <td>
+            <label class="container"
+              >uses cohesion in such a way that it attracts no attention
+              <input type="checkbox" id="CC" value="9" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >skilfully manages paragraphing
+              <input type="checkbox" id="CC" value="9" />
+              <span class="checkmark"></span>
+            </label>
+          </td>
+          <td>
+            <label class="container"
+              >uses a wide range of vocabulary with very natural and
+              sophisticated control of lexical features; rare minor errors occur
+              only as 'slips'
+              <input type="checkbox" id="LR" value="9" />
+              <span class="checkmark"></span>
+            </label>
+          </td>
+          <td>
+            <label class="container"
+              >uses a wide range of structures with full flexibility and
+              accuracy; rare minor errors occur only as 'slips'
+              <input type="checkbox" id="GRA" value="9" />
+              <span class="checkmark"></span>
+            </label>
+          </td>
+        </tr>
+        <tr>
+          <td>8</td>
+          <td>
+            <label class="container"
+              >covers all requirements of the task sufficiently
+              <input type="checkbox" id="TA" value="8" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >presents, highlights and illustrates key features/ bullet points
+              clearly and appropriately
+              <input type="checkbox" id="TA" value="8" />
+              <span class="checkmark"></span>
+            </label>
+          </td>
+          <td>
+            <label class="container"
+              >sequences information and ideas logically
+              <input type="checkbox" id="CC" value="8" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >manages all aspects of cohesion well
+              <input type="checkbox" id="CC" value="8" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >uses paragraphing sufficiently and appropriately
+              <input type="checkbox" id="CC" value="8" />
+              <span class="checkmark"></span>
+            </label>
+          </td>
+          <td>
+            <label class="container"
+              >uses a wide range of vocabulary fluently and flexibly to convey
+              precise meanings
+              <input type="checkbox" id="LR" value="8" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >skilfully uses uncommon lexical items but there may be occasional
+              inaccuracies in word choice and collocation
+              <input type="checkbox" id="LR" value="8" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >produces rare errors in spelling and/or word formation
+              <input type="checkbox" id="LR" value="8" />
+              <span class="checkmark"></span>
+            </label>
+          </td>
+          <td>
+            <label class="container"
+              >uses a wide range of structures
+              <input type="checkbox" id="GRA" value="8" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >the majority of sentences are error-free
+              <input type="checkbox" id="GRA" value="8" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >makes only very occasional errors or inappropriacies
+              <input type="checkbox" id="GRA" value="8" />
+              <span class="checkmark"></span>
+            </label>
+          </td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td>
+            <label class="container"
+              >covers the requirements of the task
+              <input type="checkbox" id="TA" value="7" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >(A) presents a clear overview of main trends, differences or
+              stages
+              <input type="checkbox" id="TA" value="7" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >(GT) presents a clear purpose, with the tone consistent and
+              appropriate
+              <input type="checkbox" id="TA" value="7" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >clearly presents and highlights key features/bullet points but
+              could be more fully extended
+              <input type="checkbox" id="TA" value="7" />
+              <span class="checkmark"></span>
+            </label>
+          </td>
+          <td>
+            <label class="container"
+              >logically organises information and ideas; there is clear
+              progression throughout
+              <input type="checkbox" id="CC" value="7" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >uses a range of cohesive devices appropriately although there may
+              be some under-/over-use
+              <input type="checkbox" id="CC" value="7" />
+              <span class="checkmark"></span>
+            </label>
+          </td>
+          <td>
+            <label class="container"
+              >uses a sufficient range of vocabulary to allow some flexibility
+              and precision
+              <input type="checkbox" id="LR" value="7" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >uses less common lexical items with some awareness of style and
+              collocation
+              <input type="checkbox" id="LR" value="7" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >may produce occasional errors in word choice, spelling and/or
+              word formation
+              <input type="checkbox" id="GRA" value="7" />
+              <span class="checkmark"></span>
+            </label>
+          </td>
+          <td>
+            <label class="container"
+              >uses a mix of simple and complex sentence forms
+              <input type="checkbox" id="GRA" value="7" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >makes some errors in grammar and punctuation but they rarely
+              reduce communication
+              <input type="checkbox" id="GRA" value="7" />
+              <span class="checkmark"></span>
+            </label>
+          </td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>
+            <label class="container"
+              >addresses the requirements of the task
+              <input type="checkbox" id="TA" value="6" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >(A) presents an overview with information appropriately selected
+              <input type="checkbox" id="TA" value="6" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >(GT) presents a purpose that is generally clear; there may be
+              inconsistencies in tone
+              <input type="checkbox" id="TA" value="6" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >presents and adequately highlights key features/ bullet points
+              but details may be irrelevant, inappropriate or inaccurate
+              <input type="checkbox" id="TA" value="6" />
+              <span class="checkmark"></span>
+            </label>
+          </td>
+          <td>
+            <label class="container"
+              >arranges information and ideas coherently and there is a clear
+              overall progression
+              <input type="checkbox" id="CC" value="6" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >uses cohesive devices effectively, but cohesion within and/or
+              between sentences may be faulty or mechanical
+              <input type="checkbox" id="CC" value="6" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >may not always use referencing clearly or appropriately
+              <input type="checkbox" id="CC" value="6" />
+              <span class="checkmark"></span>
+            </label>
+          </td>
+          <td>
+            <label class="container"
+              >uses an adequate range of vocabulary for the task
+              <input type="checkbox" id="LR" value="6" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >attempts to use less common vocabulary but with some inaccuracy
+              <input type="checkbox" id="LR" value="6" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >makes some errors in spelling and/or word formation, but they do
+              not impede communication
+              <input type="checkbox" id="LR" value="6" />
+              <span class="checkmark"></span>
+            </label>
+          </td>
+          <td>
+            <label class="container"
+              >uses a mix of simple and complex sentence forms
+              <input type="checkbox" id="GRA" value="6" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >makes some errors in grammar and punctuation but they rarely
+              reduce communication
+              <input type="checkbox" id="GRA" value="6" />
+              <span class="checkmark"></span>
+            </label>
+          </td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>
+            <label class="container"
+              >generally addresses the task; the format may be inappropriate in
+              places
+              <input type="checkbox" id="TA" value="5" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >(A) recounts detail mechanically with no clear overview; there
+              may be no data to support the description
+              <input type="checkbox" id="TA" value="5" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >(GT) may present a purpose for the letter that is unclear at
+              times; the tone may be variable and sometimes inappropriate
+              <input type="checkbox" id="TA" value="5" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >presents, but inadequately covers, key features/ bullet points;
+              there may be a tendency to focus on details
+              <input type="checkbox" id="TA" value="5" />
+              <span class="checkmark"></span>
+            </label>
+          </td>
+          <td>
+            <label class="container"
+              >presents information with some organisation but there may be a
+              lack of overall progression
+              <input type="checkbox" id="CC" value="5" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >makes inadequate, inaccurate or over-use of cohesive devices
+              <input type="checkbox" id="CC" value="5" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >may be repetitive because of lack of referencing and substitution
+              <input type="checkbox" id="CC" value="5" />
+              <span class="checkmark"></span>
+            </label>
+          </td>
+          <td>
+            <label class="container"
+              >uses a limited range of vocabulary, but this is minimally
+              adequate for the task
+              <input type="checkbox" id="LR" value="5" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >may make noticeable errors in spelling and/or word formation that
+              may cause some difficulty for the reader
+              <input type="checkbox" id="LR" value="5" />
+              <span class="checkmark"></span>
+            </label>
+          </td>
+          <td>
+            <label class="container"
+              >uses only a limited range of structures
+              <input type="checkbox" id="GRA" value="5" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >attempts complex sentences but these tend to be less accurate
+              than simple sentences
+              <input type="checkbox" id="GRA" value="5" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >may make frequent grammatical errors and punctuation may be
+              faulty; errors can cause some difficulty for the reader
+              <input type="checkbox" id="GRA" value="5" />
+              <span class="checkmark"></span>
+            </label>
+          </td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>
+            <label class="container"
+              >attempts to address the task but does not cover all key
+              features/bullet points; the format may be inappropriate
+              <input type="checkbox" id="TA" value="4" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >(GT) fails to clearly explain the purpose of the letter; the tone
+              may be inappropriate
+              <input type="checkbox" id="TA" value="4" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >may confuse key features/bullet points with detail; parts may be
+              unclear, irrelevant, repetitive or inaccurate
+              <input type="checkbox" id="TA" value="4" />
+              <span class="checkmark"></span>
+            </label>
+          </td>
+          <td>
+            <label class="container"
+              >presents information and ideas but these are not arranged
+              coherently and there is no clear progression in the response
+              <input type="checkbox" id="CC" value="4" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >uses some basic cohesive devices but these may be inaccurate or
+              repetitive
+              <input type="checkbox" id="CC" value="4" />
+              <span class="checkmark"></span>
+            </label>
+          </td>
+          <td>
+            <label class="container"
+              >uses only basic vocabulary which may be used repetitively or
+              which may be inappropriate for the task
+              <input type="checkbox" id="LR" value="4" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >has limited control of word formation and/or spelling
+              <input type="checkbox" id="LR" value="4" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >errors may cause strain for the reader
+              <input type="checkbox" id="LR" value="4" />
+              <span class="checkmark"></span>
+            </label>
+          </td>
+          <td>
+            <label class="container"
+              >uses only a very limited range of structures with only rare use
+              of subordinate clauses
+              <input type="checkbox" id="GRA" value="4" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >some structures are accurate but errors predominate, and
+              punctuation is often faulty
+              <input type="checkbox" id="GRA" value="4" />
+              <span class="checkmark"></span>
+            </label>
+          </td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>
+            <label class="container"
+              >fails to address the task, which may have been completely
+              misunderstood
+              <input type="checkbox" id="TA" value="3" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >presents limited ideas which may be largely irrelevant/repetitive
+              <input type="checkbox" id="TA" value="3" />
+              <span class="checkmark"></span>
+            </label>
+          </td>
+          <td>
+            <label class="container"
+              >does not organise ideas logically
+              <input type="checkbox" id="CC" value="3" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >may use a very limited range of cohesive devices, and those used
+              may not indicate a logical relationship between ideas
+              <input type="checkbox" id="CC" value="3" />
+              <span class="checkmark"></span>
+            </label>
+          </td>
+          <td>
+            <label class="container"
+              >uses only a very limited range of words and expressions with very
+              limited control of word formation and/or spelling
+              <input type="checkbox" id="LR" value="3" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >errors may severely distort the message
+              <input type="checkbox" id="LR" value="3" />
+              <span class="checkmark"></span>
+            </label>
+          </td>
+          <td>
+            <label class="container"
+              >attempts sentence forms but errors in grammar and punctuation
+              predominate and distort the meaning
+              <input type="checkbox" id="GRA" value="3" />
+              <span class="checkmark"></span>
+            </label>
+          </td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>
+            <label class="container"
+              >answer is barely related to the task
+              <input type="checkbox" id="TA" value="2" />
+              <span class="checkmark"></span>
+            </label>
+          </td>
+          <td>
+            <label class="container"
+              >has very little control of organisational features
+              <input type="checkbox" id="CC" value="2" />
+              <span class="checkmark"></span>
+            </label>
+          </td>
+          <td>
+            <label class="container"
+              >uses an extremely limited range of vocabulary; essentially no
+              control of word formation and/or spelling
+              <input type="checkbox" id="LR" value="2" />
+              <span class="checkmark"></span>
+            </label>
+          </td>
+          <td>
+            <label class="container"
+              >cannot use sentence forms except in memorised phrases
+              <input type="checkbox" id="GRA" value="2" />
+              <span class="checkmark"></span>
+            </label>
+          </td>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>
+            <label class="container"
+              >answer is completely unrelated to the task
+              <input type="checkbox" id="TA" value="1" />
+              <span class="checkmark"></span>
+            </label>
+          </td>
+          <td>
+            <label class="container"
+              >fails to communicate any message
+              <input type="checkbox" id="CC" value="1" />
+              <span class="checkmark"></span>
+            </label>
+          </td>
+          <td>
+            <label class="container"
+              >can only use a few isolated words
+              <input type="checkbox" id="LR" value="1" />
+              <span class="checkmark"></span>
+            </label>
+          </td>
+          <td>
+            <label class="container"
+              >cannot use sentence forms at all
+              <input type="checkbox" id="GRA" value="1" />
+              <span class="checkmark"></span>
+            </label>
+          </td>
+        </tr>
+        <tr>
+          <td>0</td>
+          <td>
+            <label class="container"
+              >does not attend
+              <input type="checkbox" id="TA" value="0" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >does not attempt the task in any way
+              <input type="checkbox" id="TA" value="0" />
+              <span class="checkmark"></span>
+            </label>
+            <label class="container"
+              >writes a totally memorised response
+              <input type="checkbox" id="TA" value="0" />
+              <span class="checkmark"></span>
+            </label>
+          </td>
+          <td></td>
+          <td></td>
+          <td>
+            <a href="https://t.me/watdfukizdat">Join our Telegram Channel</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <a onclick="reset()" class="float">
+      <i class="fa-solid fa-arrows-rotate my-float"></i>
+    </a>
+  </body>
+  <script>
+    function score_show(n) {
+      var num = Math.floor(n);
+      var decimal = n - num;
+      if (decimal < 0.25) {
+        return num + ".0";
+      } else if (decimal < 0.75) {
+        return num + ".5";
+      } else {
+        return parseInt(num + 1) + ".0";
+      }
+    }
+    function score(n) {
+      var num = Math.floor(n);
+      var decimal = n - num;
+      if (decimal < 0.25) {
+        return num;
+      } else if (decimal < 0.75) {
+        return num + 0.5;
+      } else {
+        return num + 1;
+      }
+    }
+    function calc(scores) {
+      var score = 0;
+      for (var i = 0; i < scores.length; i++) {
+        score = score + parseInt(scores[i].value);
+      }
+
+      return score / scores.length;
+    }
+
+    function calculate() {
+      var ta_scores = document.querySelectorAll(
+        'input[type="checkbox"][id="TA"]:checked'
+      );
+      if (ta_scores.length > 0) {
+        var ta_score = calc(ta_scores);
+        document.getElementById("ta-score").innerText = score_show(ta_score);
+      } else {
+        var ta_score = 0;
+        document.getElementById("ta-score").innerText = "";
+      }
+
+      var cc_scores = document.querySelectorAll(
+        'input[type="checkbox"][id="CC"]:checked'
+      );
+      if (cc_scores.length > 0) {
+        var cc_score = calc(cc_scores);
+        document.getElementById("cc-score").innerText = score_show(cc_score);
+      } else {
+        var cc_score = 0;
+        document.getElementById("cc-score").innerText = "";
+      }
+      var lr_scores = document.querySelectorAll(
+        'input[type="checkbox"][id="LR"]:checked'
+      );
+      if (lr_scores.length > 0) {
+        var lr_score = calc(lr_scores);
+        document.getElementById("lr-score").innerText = score_show(lr_score);
+      } else {
+        var lr_score = 0;
+        document.getElementById("lr-score").innerText = "";
+      }
+      var gra_scores = document.querySelectorAll(
+        'input[type="checkbox"][id="GRA"]:checked'
+      );
+      if (gra_scores.length > 0) {
+        var gra_score = calc(gra_scores);
+        document.getElementById("gra-score").innerText = score_show(gra_score);
+      } else {
+        var gra_score = 0;
+        document.getElementById("gra-score").innerText = "";
+      }
+      if (ta_score != 0 && cc_score != 0 && lr_score != 0 && gra_score != 0) {
+        ta_score = score(ta_score);
+        cc_score = score(cc_score);
+        lr_score = score(lr_score);
+        gra_score = score(gra_score);
+
+        document.getElementById("overall").innerText = score_show(
+          (ta_score + cc_score + lr_score + gra_score) / 4
+        );
+      } else {
+        document.getElementById("overall").innerText = "";
+      }
+    }
+
+    function addListener(boxes) {
+      for (var i = 0; i < boxes.length; i++) {
+        boxes[i].addEventListener("click", calculate);
+      }
+    }
+
+    function reset() {
+      var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+      for (var i = 0; i < checkboxes.length; i++) {
+        checkboxes[i].checked = false;
+      }
+      calculate();
+    }
+    // The demo
+    var checkboxesGroup1 = document.querySelectorAll(
+        'input[type="checkbox"][id="TA"]'
+      ),
+      checkboxesGroup2 = document.querySelectorAll(
+        'input[type="checkbox"][id="CC"]'
+      ),
+      checkboxesGroup3 = document.querySelectorAll(
+        'input[type="checkbox"][id="LR"]'
+      );
+    checkboxesGroup4 = document.querySelectorAll(
+      'input[type="checkbox"][id="GRA"]'
+    );
+
+    addListener(checkboxesGroup1);
+    addListener(checkboxesGroup2);
+    addListener(checkboxesGroup3);
+    addListener(checkboxesGroup4);
+  </script>
+</html>
